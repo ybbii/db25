@@ -1,0 +1,324 @@
+select * from emp;
+
+select * from dept;
+
+create database DoItSQL;
+
+use DoItSQL;
+
+drop database DoItSQL;
+
+create database DoItSQL;
+
+use DoItSQL;
+
+create table order0729 (
+	order_id varchar(20) primary key,
+    product varchar(20),
+    quantity int);
+    
+drop table order0729;
+
+select * from order0729;
+
+insert INTO order0729(order_id, product, quantity) values
+('H1234', '연필', 100),
+('H1235', '공책', 15),
+('H1236', '가방', 17);
+
+
+SELECT JSON_OBJECT('id', id, 'pw', pw, 'name', name) AS user_info
+	FROM member;  
+
+create table doit_dml (
+col_1 int primary key,
+col_2 varchar(50) not null,
+col_3 datetime not null
+);
+
+desc doit_dml;
+
+insert into doit_dml(col_1, col_2, col_3) values (1, 'DoItSQL', '2025-07-30');
+insert into doit_dml(col_3, col_2, col_1) values ('2025-08-14', 'DoItSQL', 5);
+
+select * from doit_dml;
+
+insert into doit_dml values (3, '문자입력', '2025-07-30');
+insert into doit_dml(col_1, col_3) values (2, '2025-08-01');
+
+delete from doit_dml where col_1 = 100;
+
+drop table doit_dml;
+
+update doit_dml set col_2 = '안ㅇ녕', col_1 = 100 where col_1 =1;
+update doit_dml set col_2 = 'ㅇㄺㄸ' where col_3 = '2025-08-01';
+update doit_dml set col_2 = 'ㄳ', col_3 = '2025-08-01' where col_1 = 5;
+
+
+select count(*) from customer;
+
+desc customer;
+
+select * from address where address_id = 5;
+
+select * from store where store_id = 1;
+
+select * from staff where staff_id = 1;
+
+select * from store;
+
+desc store;
+
+select first_name, last_name from customer;
+
+select count(*) from actor;
+
+select * from customer where address_id < 200;
+
+select * from payment;
+
+desc payment;
+
+select * from rental where rental_id = 76;
+
+select * from payment where payment_date between '2005-07-01' and '2005-07-06';
+
+select * from customer where address_id between 5 and 10;
+
+show columns from sakila.actor;
+
+select count(*) from emp;
+select * from emp;
+select * from dept;
+select distinct deptno from emp;
+select distinct deptno, job from emp;
+select deptno, job from emp;
+select ename, sal*12 as "annsal" from emp order by sal desc;
+
+select comm, ifnull(comm, 0) from emp;
+select empno, ename, sal * 12 + ifnull(comm, 0) as annual_salary from emp;
+select * from emp order by sal desc;
+select * from emp order by ename;
+select * from emp order by deptno desc, sal;
+select * from emp where deptno = 30;
+select * from emp where empno = 7782;
+select * from emp where empno = 7499 and deptno = 30;
+select * from emp where deptno = 20 or job = 'salesman';
+select * from emp where deptno in (10, 20);
+
+select * from emp where job = 'manager' or job = 'salesman';
+select * from emp where job in ('manager', 'salesman');
+
+select * from emp where job != 'MANAGER' and job != 'SALESMAN'; 
+select * from emp where job not in ('MANAGER', 'SALESMAN');
+
+select * from emp where sal >= 2000 and sal <= 3000;
+select * from emp where sal between 2000 and 3000;
+
+select * from emp where sal not between 2000 and 3000;
+
+select * from emp where ename like 's%';
+select * from emp where ename like '_l%';
+select * from emp where ename like '%AM%';
+select * from emp where comm is null;
+select * from emp where comm is not null;
+
+use sakila;
+SELECT * FROM customer WHERE first_name = 'MARIA';
+SELECT * FROM customer WHERE address_id < 200;
+SELECT * FROM payment;
+SELECT * FROM payment WHERE payment_date between '2005-07-09 13' and '2005-07-09 14';
+SELECT * FROM customer where address_id between 5 and 10;
+SELECT * FROM address;
+SELECT * FROM customer where fist_name between 'M' and '0';
+SELECT * FROM city WHERE city = 'Sunnyvale' and country_id = 103;
+SELECT * FROM payment WHERE payment_date between '2005-06-01' and '2005-07-05';
+SELECT * FROM customer where first_name in ('MARIA', 'LINDA');
+SELECT * FROM city where country_id in (86, 103) and city in ('Cheju', 'Sunnyvale', 'Dallas');
+SELECT * FROM address WHERE address2 is null;
+SELECT * FROM customer order by store_id, first_name;
+SELECT * FROM customer limit 10;
+SELECT * FROM customer order by customer_id limit 10 offset 100;
+SELECT * FROM customer WHERE first_name like 'A%A';
+
+with CTE(col_1) as (
+select 'A%BC' union all
+select 'A_BC' union all
+select 'ABC'
+)
+SELECT * FROM CTE WHERE col_1 like '%#_%' escape '#';
+
+SELECT 100 union all SELECT '100';
+
+with CTE(col_1, col_2) as (
+select '123', '가나다' union all
+select 'abc', '마바사' union all
+select 'ABC', 'DEF'
+)
+SELECT * FROM CTE;
+
+SELECT * FROM emp;
+SELECT * FROM dept;
+
+SELECT empno, ename, sal, deptno FROM emp WHERE deptno = 10
+union
+SELECT empno, ename, sal, deptno FROM emp WHERE deptno = 20;
+
+SELECT empno, ename, sal, deptno FROM emp WHERE DEPTNO = 10
+union all
+SELECT empno, ename, sal, deptno FROM emp WHERE DEPTNO = 10;
+
+SELECT ename, sal, deptno, empno FROM emp WHERE deptno = 10
+union
+SELECT empno, ename, sal, deptno FROM emp WHERE deptno = 20;
+
+SELECT sum(sal) FROM emp;
+SELECT AVG(sal) FROM emp;
+SELECT count(*) FROM emp;
+SELECT count(empno) FROM emp;
+SELECT sum(distinct sal) FROM emp;
+SELECT count(DISTINCT sal) FROM emp;
+SELECT sum(ifnull(comm, 0)) FROM emp;
+SELECT count(*), sum(sal), AVG(sal) FROM emp;
+SELECT count(comm) FROM emp WHERE comm IS NOT NULL;
+SELECT max(sal), min(sal), max(HIREDATE), min(HIREDATE) FROM emp;
+
+SELECT '10' as deptno, AVG(sal) FROM emp WHERE deptno = 10
+union all
+SELECT '20' as deptno, AVG(sal) FROM emp WHERE deptno = 20;
+
+SELECT deptno, AVG(sal), count(*) from emp group by deptno order by deptno;
+
+SELECT deptno, job, AVG(sal) from emp group by deptno, job having avg(sal) >= 2000 order by deptno;
+
+SELECT * FROM customer WHERE first_name like 'A__';
+
+select * from customer where first_name regexp '^k|N$';
+select * from customer where first_name regexp 'k[L-N]';
+
+create table tiny (
+num int auto_increment primary key,
+content varchar(200));
+
+insert into tiny(content) values ('안녕하세요'),('ㄳ'),('ㄷㄱㄷ'),('ㄴㅇㅁ');
+
+select * from tiny;
+
+delete from tiny where num = 6;
+
+update tiny set content = '아령하세연' where num = 1;
+
+select * from emp, dept order by EMPNO;
+select count(*) from emp, dept order by EMPNO;
+select * from emp;
+select * from dept;
+
+select e.empno, e.ename, d.dname, d.loc, e.deptno 
+from emp e, dept d 
+where e.deptno = d.deptno 
+order by e.empno;
+
+select e.empno, e.ename, d.dname, d.loc, deptno 
+from emp e natural join dept d
+order by e.empno;
+
+select e.empno, e.ename, d.dname, d.loc, deptno 
+from emp e join dept d using (deptno)
+order by e.empno;
+
+select e.empno, e.ename, d.dname, d.loc, e.deptno 
+from emp e join dept d on (e.deptno = d.deptno)
+order by e.empno;
+
+select e1.empno, e1.ename, e1.mgr, e2.empno as 매니저사번, e2.ename as 매니저이름
+from emp e1 left outer join emp e2 on (e1.mgr = e2.empno)
+order by e1.empno;
+
+select e1.empno, e1.ename, e1.mgr, e2.empno as 매니저사번, e2.ename as 매니저이름
+from emp e1 right outer join emp e2 on (e1.mgr = e2.empno)
+order by e1.empno;
+
+select count(distinct special_features) from film;
+
+select special_features, count(special_features) from film group by special_features;
+select distinct rating from film;
+select rating, special_features from film group by rating, special_features order by rating;
+
+select special_features, rating, count(*)
+from film
+group by special_features, rating;
+
+create table board (
+    num     int          auto_increment primary key,
+    writer  varchar(20),
+    title   varchar(60),
+    content text,
+    regtime varchar(20),
+    hits    int
+);
+
+insert into board values
+    (1, '홍길동', '글 1', '글의 내용 1', '2017-07-30 10:10:11', 0),
+    (2, '이순신', '글 2', '글의 내용 2', '2017-07-30 10:10:12', 0),
+    (3, '강감찬', '글 3', '글의 내용 3', '2017-07-30 10:10:13', 0),
+    (4, '김수로', '글 4', '글의 내용 4', '2017-07-30 10:10:14', 0),
+    (5, '장길산', '글 5', '글의 내용 5', '2017-07-30 10:10:15', 0),
+    (6, '김수로', '글 6', '글의 내용 6', '2017-07-30 10:10:16', 0),
+    (7, '홍길동', '글 7', '글의 내용 7', '2017-07-30 10:10:17', 0),
+    (8, '이순신', '글 8', '글의 내용 8', '2017-07-30 10:10:18', 0);
+
+create table doit_increment (
+col_1 int primary key auto_increment,
+col_2 varchar(50),
+col_3 int);
+
+desc doit_increment;
+
+select last_insert_id();
+
+create table doit_parent (
+col_1 int primary key);
+
+create table doit_child (
+col_1 int);
+alter table doit_child add foreign key (col_1) references doit_parent(col_1);
+
+insert into doit_child(col_1) values (1);
+insert into doit_parent(col_1) values (1);
+insert into doit_child(col_1) values (10);
+insert into doit_parent(col_1) values (10);
+select * from doit_parent;
+
+select * from doit_child;
+
+delete from doit_parent where col_1 = 1;
+delete from doit_child where col_1 = 1;
+
+show create table doit_child;
+
+drop table doit_child;
+drop table doit_parent;
+
+CREATE TABLE `doit_child` (
+  `col_1` int DEFAULT NULL,
+  KEY `col_1` (`col_1`),
+  CONSTRAINT `doit_child_ibfk_1` FOREIGN KEY (`col_1`) REFERENCES `doit_parent` (`col_1`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `doit_parent` (
+  `col_1` int NOT NULL,
+  PRIMARY KEY (`col_1`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+create table doit_cross1(num int);
+create table doit_cross2(name varchar(10));
+
+insert into doit_cross1 values (1), (2), (3);
+insert into doit_cross2 values ('Do'), ('It'), ('SQL');
+
+select * from doit_cross1; 
+select * from doit_cross2;
+
+select count(*) from doit_cross1, doit_cross2;
+
+select a.num, b.name from doit_cross1 as a cross join doit_cross2 as b order by a.num;

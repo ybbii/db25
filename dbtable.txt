@@ -1,0 +1,143 @@
+create database todo_db character set utf8mb4 collate utf8mb4_unicode_ci;
+
+create table todos (
+	id int auto_increment primary key,
+	title varchar(255) not null,
+	completed boolean default false
+);
+
+select * from todos;
+
+create table board (
+	id int auto_increment primary key,
+    title varchar(255),
+    content text,
+    created_at timestamp default current_timestamp
+);
+
+insert into board (title, content) values ('연습', '연습임');
+
+select * from board;
+
+create table member (
+	ID int auto_increment primary key,
+	EMAIL varchar(255),
+    PASSWORD varchar(100),
+    NAME varchar(100),
+    REGDATE datetime,
+    unique key (EMAIL)
+) engine=InnoDB character set = utf8mb4;
+
+desc member;
+
+select * from member;
+
+
+
+create table music (
+	NUM int auto_increment primary key,
+	TITLE varchar(255),
+    NAME varchar(100)
+) engine=InnoDB character set = utf8mb4;
+
+select * from music;
+
+create table id_sequence (
+	sequence_name varchar(10) not null,
+	next_value int not null,
+	primary key (sequence_name)
+);
+
+insert into id_sequence values ('article', 0);
+
+create table article (
+	article_id int not null auto_increment,
+	group_id int not null,
+	sequence_no char(16) not null,
+	posting_date datetime not null,
+	read_count int not null,
+	writer_name varchar(20) not null,
+	password varchar(10),
+	title varchar(100),
+	content text,
+	primary key (article_id),
+	index (sequence_no)
+);
+
+create database guestbook;
+
+use guestbook;
+
+create table guestbook_message (
+	message_id int not null auto_increment primary key,
+    guest_name varchar(50) not null,
+    password varchar(10) not null,
+    message text not null
+    ) engine=InnoDB default character set = utf8mb4;
+    
+    show character set;
+    
+    select * from guestbook_message order by message_id desc limit 0, 10;
+    
+create database du0821;
+    
+    create table member (
+    id   varchar(20)  primary key,
+    pw   varchar(20), 
+    name varchar(20)
+);
+
+insert into member values ('admin', '1234', '관리자');
+insert into member values ('hong1', 'abcd', '홍길동');
+
+select * from member;
+
+create table board (
+num int auto_increment primary key,
+title varchar(20) not null,
+wname varchar(20) not null,
+content varchar(200) not null);
+
+drop table board;
+
+select * from board;
+
+insert into board(wname, title, content) values
+('홍길동', '울세이너사나이', 'hong@naver.com'),
+('씰룩이', '응', 'hong1@naver.com'),
+('쌜룩이', '애', 'hong2@naver.com');
+
+create database du08;
+drop database du08;
+use du08;
+drop table member;
+create table member (
+mid int auto_increment primary key,
+kname varchar(20) not null,
+addr varchar(50) not null,
+email varchar(50) not null,
+phone varchar(50) unique);
+desc member;
+insert into member(kname, addr, email, phone) values
+('홍길동', '울세이너사나이', 'hong@naver.com', '010-1233-1234'),
+('씰룩이', '서울', 'hong1@naver.com', '010-1993-1234'),
+('쌜룩이', '서울', 'hong2@naver.com', '010-444-1234')
+;
+
+select * from member;
+
+select * from member where mid = 3;
+
+create database Animal;
+
+create table lookanimal (
+	order_id int primary key,
+    animal varchar(20) not null,
+    a_date date not null);
+    
+select * from lookanimal;
+
+drop table lookanimal;
+    
+insert into lookanimal(order_id, animal, a_date) values ('1', 'Cat', '2025-07-30');
+insert into lookanimal(order_id, animal, a_date) values ('2', 'Tiger', '2025-08-11');
