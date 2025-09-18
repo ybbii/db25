@@ -1,0 +1,4 @@
+db diagram 만들어주는 웹페이지
+https://dbdiagram.io/d
+
+지피티 돌려서 코드 만들어낸 다음에 코드 복붙하면 다이어그램 생성됨
